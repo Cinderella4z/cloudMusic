@@ -1,0 +1,21 @@
+:root {
+
+  /* 主背景颜色 */
+  --blackBackGround:#2b2b2b;
+
+
+  /* 音乐标题 歌手 栏 */
+  --tabColor:#888888;
+
+  /* 歌手名 */
+  --songName:#cad0d0;
+
+  /* 点击爱心变红 */
+  --addItem:#d73535;   
+
+  --Control-tabbar:#212124;  
+
+  --mouseOver: #373737;
+  
+ 
+}
