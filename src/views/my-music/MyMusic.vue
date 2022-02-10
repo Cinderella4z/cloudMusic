@@ -25,6 +25,7 @@
 <script>
 import Songs from '../../components/content/songs/Songs'
 import { getLikelist } from '../../assets/js/getLikelist'
+import { playAll } from '../../assets/js/playAll'
 
 
 export default {
@@ -48,20 +49,12 @@ export default {
       this.$emit('SongClick');
     },
     playAll () {
-      // 将我喜欢的音乐 全部加进 播放列表
-      this.$store.commit('removeAllWaitSongs')
-      this.$store.commit('addAll', {
-        songs: this.$store.state.AllAddedSongs,
-        songId: this.$store.state.AllAddedSongsId,
-        songUrl: this.$store.state.AllAddedSongsUrl,
-        songDetail: this.$store.state.AllAddedSongsDetail,
-      });
-      this.$store.commit('setCurrentSong', this.$store.state.AllAddedSongs[0]);
-      this.$store.commit('setCurrentSongUrl', this.$store.state.AllAddedSongsUrl[0]);
-      this.$store.commit('setCurrentSongDetail', this.$store.state.AllAddedSongsDetail[0])
+      playAll(this.$store.state.AllAddedSongs);
 
-      this.$emit('SongClick');
-      this.$store.commit('setIfplay', true)
+      setTimeout(() => {
+        this.$emit('SongClick');
+      }, 300)
+
     },
     loadmore () {
       this.loadPage++;

@@ -3,28 +3,20 @@
 
     <div class="tab">
       <span v-for="(i,k) in tab"
-            class="tab-item">
+            class="tab-item"
+            @click="tabData(i,k)"
+            :class="{onclick:currentKey===k}">
         {{i}}
       </span>
     </div>
-    <!--  -->
-    <el-carousel :interval="4000"
-                 type="card"
-                 height="200px">
-      <el-carousel-item v-for="item in imgUrl"
-                        :key="item.imageUrl">
-        <h3 class="medium"><img :src="item.imageUrl"></h3>
-      </el-carousel-item>
-    </el-carousel>
-    <!--  -->
-    <recommend></recommend>
+
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
-<script>
-import { getBanner } from '../../network/banner'
-
-import Recommend from './children/Recommend'
+<script>  
 
 
 
@@ -34,23 +26,41 @@ export default {
   name: 'Find',
   data () {
     return {
-      tab: ['个性推荐', '专属定制', '歌单', '排行榜', '歌手', '最新音乐'],
+      tab: ['个性推荐', '歌单', '排行榜', '歌手', '最新音乐'],
       imgUrl: [],
+      currentKey: 0
     }
   },
-  components: {
-    Recommend
-  },
+  methods: {
+    tabData (i, k) {
+      this.currentKey = k
+      switch (k) {
+        case 0:
+          this.$router.push('/recommend')
+          break;
+        case 1:
+          this.$router.push('/List')
+          break;
+        case 2:
+          // this.$router.push('/rank')
+          break;
 
-  created () {
-    getBanner().then(res => {
-      this.imgUrl.push(...res.data.banners);
-    })
-  },
+        default:
+          break;
+      }
+    }
+  }
+
 }
 </script>
 
 <style>
+.onclick {
+  font-size: 25px;
+  font-weight: bolder;
+  border-bottom: 4px solid #ec4141;
+}
+
 #Find {
   display: inline-block;
   height: calc(100vh - 72px - 80px);
@@ -61,6 +71,7 @@ export default {
 }
 /* 最上面的导航 */
 .tab {
+  margin-left: 7px;
   height: 60px;
   width: 40%;
   display: flex;
@@ -71,32 +82,6 @@ export default {
 }
 .tab-item {
   overflow: hidden;
-}
-
-/* 轮播图 */
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  line-height: 250px;
-  border-radius: 30px;
-  margin: 0;
-}
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-  border-radius: 30px;
-}
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-  border-radius: 30px;
-}
-.el-carousel {
-  width: 95%;
-  margin: 20px auto;
-}
-.medium img {
-  background-size: cover;
-  width: 100%;
-  height: 100%;
 }
 </style>
 

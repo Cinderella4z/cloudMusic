@@ -18,7 +18,7 @@
     <div v-for="(i,k) in SearchSongs"
          class="box"
          @mousemove="mousemove(k)"
-         :class="{grey:currentKey===k,dd:getCurrentSong===i.id,backcolor:k%2!=0}"
+         :class="{grey:currentKey===k,dd:getCurrentSong===i.id,backcolor:k%2===0}"
          @dblclick="SongClick(i)">
       <!-- 收藏功能 -->
       <span class="index">{{k+1 >= 10 ? k+1 : '0'+ (k+1)}}</span>

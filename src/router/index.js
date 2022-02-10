@@ -6,7 +6,8 @@ const mymusic = () => import('../views/my-music/MyMusic.vue')
 const history = () => import('../views/history/History.vue')
 const find = () => import('../views/find/Find.vue')
 const show = () => import('../views/showRecommend/Show.vue')
-
+const recommend = () => import('../views/find/children/Recommend.vue')
+const List = () => import('../views/find/children/List.vue')
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,22 @@ const routes = [
   },
   {
     path: '/find',
-    component: find
+    component: find,
+    children: [
+      {
+        path: '/',
+        redirect: '/recommend'
+
+      },
+      {
+        path: '/recommend',
+        component: recommend,
+      },
+      {
+        path: '/List',
+        component: List
+      },
+    ],
   },
   {
     path: '/show',

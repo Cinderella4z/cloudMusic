@@ -73,7 +73,7 @@ export default {
       phoneLogin(this.phone, this.password).then(res => {
         if (res.data.code !== 400) {
           // 获取推荐歌单
-          console.log(res);
+          // console.log(res);
           this.$store.commit('setbackgroundUrl', res.data.profile.backgroundUrl)
           this.$store.commit('setUrl', res.data.profile.avatarUrl)
           this.$store.commit('setname', res.data.profile.nickname)
@@ -84,6 +84,7 @@ export default {
 
           getRecommend().then(res => {
             this.$store.commit('setRecommend', res.data.recommend.splice(0, 10))
+            console.log(res);
           })
 
           this.$store.commit('setuid', res.data.account.id)

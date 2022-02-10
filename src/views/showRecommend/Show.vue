@@ -6,6 +6,7 @@
       <span slot="tabname">推荐歌单</span>
       <div slot="playAll">
         <el-button type="danger"
+                   @click="playAll"
                    round>▶ 播放全部</el-button>
       </div>
       <span slot="num2">音乐标题</span>
@@ -18,6 +19,7 @@
 
 <script>
 import Songs from '../../components/content/songs/Songs'
+import { playAll } from '../../assets/js/playAll'
 
 
 export default {
@@ -39,6 +41,13 @@ export default {
     SongClick () {
       this.$emit('SongClick')
     },
+    playAll () {
+      playAll(this.$store.state.private.currentRecommend)
+
+      setTimeout(() => {
+        this.$emit('SongClick');
+      }, 300)
+    }
 
   }
 }

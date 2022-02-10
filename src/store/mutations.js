@@ -54,23 +54,26 @@ export default
 
 
     // 播放全部
-    addAll (state, playload) {
-      state.WaitSongs.unshift(...playload.songs);
-      state.WaitSongsId.unshift(...playload.songId);
-      state.WaitSongsUrl.unshift(...playload.songUrl);
+    playAll (state, playload) {
+      state.WaitSongs.unshift(...playload.songs)
+      state.WaitSongsId.unshift(...playload.ids)
+      state.WaitSongsUrl.unshift(...playload.srcs)
     },
+
+    // playlist
     removeAllWaitSongs (state) {
       state.WaitSongs.splice(0, state.WaitSongs.length);
       state.WaitSongsId.splice(0, state.WaitSongsId.length);
+      state.WaitSongsUrl.splice(0, state.WaitSongsUrl.length);
+
     },
 
 
 
     removeWaitSongs (state, playload) {
       state.WaitSongs.splice(state.WaitSongs.indexOf(playload), 1);
-    },
-    removeWaitSongsId (state, playload) {
-      state.WaitSongsId.splice(state.WaitSongsId.indexOf(playload), 1);
+      state.WaitSongsId.splice(state.WaitSongsId.indexOf(playload.id), 1);
+
     },
 
 
@@ -89,8 +92,7 @@ export default
     setmuted (state) {
       state.muted = !state.muted;
     },
-
     setHistory (state, playload) {
-      state.HistorySongs.push(playload)
+      state.HistorySongs.unshift(playload)
     }
   }

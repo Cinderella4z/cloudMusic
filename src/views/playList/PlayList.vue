@@ -69,7 +69,6 @@ export default {
       this.$store.commit('removeAllWaitSongs');
       this.$store.commit('setCurrentSong', null);
       this.$store.commit('setCurrentSongUrl', null);
-      // this.$store.commit('setCurrentSongDetail', null);
       this.$emit('loadSong')
 
     }

@@ -271,6 +271,11 @@ export default {
         this.$store.commit('setCurrentSong', this.$store.state.WaitSongs[currentIndex + 1])
         this.$emit('loadSong')
       }
+
+      // if (this.$store.state.HistorySongs.indexOf(this.$store.state.CurrentSongId) === -1) {
+      //   this.$store.commit('setHistory', this.$store.state.CurrentSong)
+      // }
+
     },
     lastSong () {
       let currentIndex = this.$store.state.WaitSongs.indexOf(this.$store.state.CurrentSong); //记入当前播放的歌曲
