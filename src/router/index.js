@@ -44,7 +44,7 @@ const routes = [
         component: recommend,
       },
       {
-        path: '/List',
+        path: '/list',
         component: List
       },
     ],

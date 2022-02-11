@@ -5,26 +5,23 @@
       <div slot="tabname">
         <span v-for="(i,k) in tabs"
               class="tabs"
-              :class="{backcolor:k===index}">{{i}}</span>
+              :class="{backcolor:k===index}"
+              @click="getList(k)">{{i}}</span>
       </div>
-      <!-- 
-      <div class="zz">
-        <div class="z"
-             v-for="(i,k) in Recommend"
-             @click="showList(i,k)">
-          <SongItem>
 
-            <div slot="img">
-              <img :src="i.picUrl">
-            </div>
+      <SongItem v-for="(i,k) in List"
+                @clickList="showList(i,k)">
 
-            <div slot="text">
-              {{i.name}}
-            </div>
-
-          </SongItem>
+        <div slot="img">
+          <img :src="getUrl(k)">
         </div>
-      </div> -->
+
+        <div slot="text">
+          {{i.name}}
+        </div>
+
+      </SongItem>
+
     </song-list>
 
   </div>
@@ -34,7 +31,8 @@
 import SongList from '../../../components/content/find/SongList'
 import SongItem from '../../../components/content/find/Song-items'
 
-
+import { highquality } from '../../../network/Find/child/highquality'
+import { showList } from '../../../assets/js/find/showList'
 export default {
   name: 'List',
   data () {
@@ -46,11 +44,43 @@ export default {
   components: {
     SongList,
     SongItem
+  },
+  activated () {
+    let cat = this.tabs[this.index]
+    highquality(cat, 20).then(res => {
+      this.$store.commit('setRecommend', res.data.playlists)
+    })
+  },
+
+
+  methods: {
+    getList (k) {
+      this.index = k;
+      let cat = this.tabs[k]
+      highquality(cat, 20).then(res => {
+        this.$store.commit('setRecommend', res.data.playlists)
+      })
+    },
+    getUrl (k) {
+      return this.$store.state.private.recommend[k].picUrl ? this.$store.state.private.recommend[k].picUrl : this.$store.state.private.recommend[k].coverImgUrl
+    },
+    showList (i) {
+      showList(i)
+    }
+  },
+
+  computed: {
+    List () {
+      return this.$store.state.private.recommend
+    }
   }
 }
+
+
+
 </script>
 
-<style scoped>
+<style>
 .tabs {
   color: #878787;
   font-size: 14px;

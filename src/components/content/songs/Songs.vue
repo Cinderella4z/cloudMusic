@@ -35,7 +35,7 @@
             :class="{colorRed:getCurrentSong===i.id}">{{i.name}}</span>
       <span class="artists">{{i.ar[0].name}}</span>
       <span class="artists">{{i.al.name}}</span>
-      <span class="artists">0</span>
+      <span class="artists">-</span>
     </div>
 
     <div class="loadMore"

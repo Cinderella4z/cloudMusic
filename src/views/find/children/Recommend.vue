@@ -13,22 +13,18 @@
     <song-list>
       <div slot="tabname">推荐歌单</div>
 
-      <div class="zz">
-        <div class="z"
-             v-for="(i,k) in Recommend"
-             @click="showList(i,k)">
-          <SongItem>
+      <SongItem v-for="(i,k) in Recommend"
+                @clickList="showList(i,k)">
 
-            <div slot="img">
-              <img :src="getUrl(k)">
-            </div>
-            <div slot="text">
-              {{i.name}}
-            </div>
-
-          </SongItem>
+        <div slot="img">
+          <img :src="getUrl(k)">
         </div>
-      </div>
+        <div slot="text">
+          {{i.name}}
+        </div>
+
+      </SongItem>
+
     </song-list>
 
   </div>
@@ -37,11 +33,13 @@
 <script>
 import SongList from '../../../components/content/find/SongList'
 import SongItem from '../../../components/content/find/Song-items'
-
-import { getRecommendItem } from '../../../network/find-songs'
-import { getRecommend } from '../../../network/Find/child/recommend'
 import { getSongDetail } from '../../../network/SongDetail'
-import { getBanner } from '../../../network/banner'
+
+
+import { getBanner } from '../../../network/Find/child/banner'
+import { getRecommendItem } from '../../../network/Find/child/find-songs'
+import { getRecommend } from '../../../network/Find/child/recommend'
+import { showList } from '../../../assets/js/find/showList'
 
 export default {
   name: 'Recommend',
@@ -64,41 +62,17 @@ export default {
     getBanner().then(res => {
       this.imgUrl.push(...res.data.banners);
     })
-
-    getRecommend().then(res => {
-      console.log(res);
-      this.$store.commit('setRecommend', res.data.playlists.splice(0, 10))
+  },
+  activated () {
+    getRecommend(10).then(res => {
+      this.$store.commit('setRecommend', res.data.playlists)
     })
   },
 
 
   methods: {
-    showList (i, k) {
-      getRecommendItem(i.id).then(res => {
-
-        // 为了处理res 获取歌曲的ids
-        let ids = [];
-        let obj = (res.data.playlist.trackIds).splice(0, 20)
-
-
-        for (let item of obj) {
-          ids.push(item.id)
-        }
-
-        if (this.$store.state.private.currentRecommend.length !== 0) {
-          this.$store.commit('ClearCurrentRecommend')
-        }
-
-        // 通过ID 查询 歌曲的详细信息 以便 使用Songs 组件 
-        for (let id of ids) {
-          getSongDetail(id).then(res => {
-            // console.log(...res.data.songs);
-            this.$store.commit('setCurrentRecommend', ...res.data.songs)
-          })
-        }
-        this.$router.push('/show');
-
-      })
+    showList (i) {
+      showList(i)
     },
     getUrl (k) {
       return this.$store.state.private.recommend[k].picUrl ? this.$store.state.private.recommend[k].picUrl : this.$store.state.private.recommend[k].coverImgUrl
@@ -112,17 +86,6 @@ export default {
 </script>
 
 <style >
-.z {
-  display: inline-block;
-}
-.z img {
-  border-radius: 20px;
-}
-.zz {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;

@@ -53,7 +53,7 @@
 
 <script>
 import { getKey, create, check, phoneLogin } from '../../network/login'
-import { getRecommend } from '../../network/find-songs'
+import { getRecommend } from '../../network/Find/child/find-songs'
 import { getLikelist } from '../../assets/js/getLikelist'
 
 

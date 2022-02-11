@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import mutations from './mutations'
 import Private from './module/private/Private'
+import Find from './module/find/Find'
 import actions from './actions'
 Vue.use(Vuex);
 
@@ -33,7 +34,8 @@ const store = new Vuex.Store({
   mutations,
   actions,
   modules: {
-    private: Private
+    private: Private,
+    find: Find
   },
 
 })

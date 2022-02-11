@@ -1,5 +1,6 @@
 <template>
-  <div id="Song-items">
+  <div id="Song-items"
+       @click="clickList">
     <div class="img">
       <slot name="img"></slot>
     </div>
@@ -19,8 +20,10 @@ export default {
 
     }
   },
-  components: {
-
+  methods: {
+    clickList () {
+      this.$emit('clickList')
+    }
   }
 }
 </script>
@@ -31,6 +34,8 @@ export default {
   height: 250px;
   margin-top: 10px;
   color: #d0d0d0;
+  display: inline-block;
+  margin-right: 27px;
 }
 .img {
   width: 220px;
@@ -39,11 +44,12 @@ export default {
 .img img {
   width: 100%;
   height: 100%;
+  border-radius: 30px;
 }
 .text {
   height: 20px;
   width: 220px;
   overflow: hidden;
-  padding-top: 2px;
+  padding-top: 8px;
 }
 </style>

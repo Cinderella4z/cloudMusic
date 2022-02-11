@@ -5,7 +5,7 @@
       <span v-for="(i,k) in tab"
             class="tab-item"
             @click="tabData(i,k)"
-            :class="{onclick:currentKey===k}">
+            :class="{onclick:currentindex===k}">
         {{i}}
       </span>
     </div>
@@ -17,29 +17,25 @@
 </template>
 
 <script>  
-
-
-
-
-
 export default {
   name: 'Find',
   data () {
     return {
       tab: ['个性推荐', '歌单', '排行榜', '歌手', '最新音乐'],
+      currenttab: ['/recommend', '/list', '/rank', '/songer', '/newsongs'],
       imgUrl: [],
-      currentKey: 0
     }
   },
   methods: {
     tabData (i, k) {
-      this.currentKey = k
+
       switch (k) {
         case 0:
+
           this.$router.push('/recommend')
           break;
         case 1:
-          this.$router.push('/List')
+          this.$router.push('/list')
           break;
         case 2:
           // this.$router.push('/rank')
@@ -48,6 +44,12 @@ export default {
         default:
           break;
       }
+    }
+  },
+
+  computed: {
+    currentindex () {
+      return this.currenttab.indexOf(this.$route.path)
     }
   }
 
