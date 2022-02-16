@@ -1,7 +1,8 @@
 <template>
   <div id="Find">
 
-    <div class="tab">
+    <div class="tab"
+         ref="tab">
       <span v-for="(i,k) in tab"
             class="tab-item"
             @click="tabData(i,k)"
@@ -22,7 +23,7 @@ export default {
   data () {
     return {
       tab: ['个性推荐', '歌单', '排行榜', '歌手', '最新音乐'],
-      currenttab: ['/recommend', '/list', '/rank', '/songer', '/newsongs'],
+      currenttab: ['/recommend', '/list', '/rank', '/songerlist', '/newsongs'],
       imgUrl: [],
     }
   },
@@ -38,13 +39,18 @@ export default {
           this.$router.push('/list')
           break;
         case 2:
-          // this.$router.push('/rank')
+          this.$router.push('/rank')
+          break;
+        case 3:
+          this.$router.push('/songerlist')
           break;
 
         default:
           break;
       }
-    }
+    },
+
+
   },
 
   computed: {
@@ -80,7 +86,11 @@ export default {
   justify-content: space-around;
   line-height: 60px;
   font-size: 18px;
+  z-index: 9;
+
+  /* background-color: var(--blackBackGround); */
   color: #afafaf;
+  /* position: fixed; */
 }
 .tab-item {
   overflow: hidden;

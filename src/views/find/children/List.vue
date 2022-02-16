@@ -48,7 +48,7 @@ export default {
   activated () {
     let cat = this.tabs[this.index]
     highquality(cat, 20).then(res => {
-      this.$store.commit('setRecommend', res.data.playlists)
+      this.$store.commit('setList', res.data.playlists)
     })
   },
 
@@ -58,11 +58,11 @@ export default {
       this.index = k;
       let cat = this.tabs[k]
       highquality(cat, 20).then(res => {
-        this.$store.commit('setRecommend', res.data.playlists)
+        this.$store.commit('setList', res.data.playlists)
       })
     },
     getUrl (k) {
-      return this.$store.state.private.recommend[k].picUrl ? this.$store.state.private.recommend[k].picUrl : this.$store.state.private.recommend[k].coverImgUrl
+      return this.$store.state.find.list[k].picUrl ? this.$store.state.find.list[k].picUrl : this.$store.state.find.list[k].coverImgUrl
     },
     showList (i) {
       showList(i)
@@ -71,7 +71,7 @@ export default {
 
   computed: {
     List () {
-      return this.$store.state.private.recommend
+      return this.$store.state.find.list
     }
   }
 }

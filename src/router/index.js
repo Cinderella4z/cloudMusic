@@ -8,6 +8,9 @@ const find = () => import('../views/find/Find.vue')
 const show = () => import('../views/showRecommend/Show.vue')
 const recommend = () => import('../views/find/children/Recommend.vue')
 const List = () => import('../views/find/children/List.vue')
+const rank = () => import('../views/find/children/Rank.vue')
+const songer = () => import('../views/songer/Songer.vue')
+const SongerList = () => import('../views/find/children/SongerList.vue')
 
 Vue.use(VueRouter)
 
@@ -47,12 +50,25 @@ const routes = [
         path: '/list',
         component: List
       },
+      {
+        path: '/rank',
+        component: rank
+      },
+      {
+        path: '/songerlist',
+        component: SongerList
+      },
     ],
   },
   {
     path: '/show',
     component: show
   },
+  {
+    path: '/songer',
+    component: songer
+  },
+
 ]
 
 const router = new VueRouter({

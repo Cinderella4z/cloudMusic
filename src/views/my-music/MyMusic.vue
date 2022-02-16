@@ -15,6 +15,7 @@
       <span slot="num4">时长</span>
 
       <div slot="loadMore"
+           v-show="$store.state.private.uid"
            @click="loadmore">加载更多</div>
 
     </songs>

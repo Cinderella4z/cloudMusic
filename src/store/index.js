@@ -14,6 +14,7 @@ const state = {
   currentTime: 0, //记录当前音乐播放事件 ,
   duration: 0,//歌曲总时长
   muted: false,//静音
+  songer: [],
 
   AllAddedSongs: [], //我喜欢的音乐
   AllAddedSongsId: [],

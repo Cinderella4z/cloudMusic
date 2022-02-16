@@ -62,12 +62,12 @@ export default {
     getBanner().then(res => {
       this.imgUrl.push(...res.data.banners);
     })
-  },
-  activated () {
+
     getRecommend(10).then(res => {
       this.$store.commit('setRecommend', res.data.playlists)
     })
   },
+
 
 
   methods: {

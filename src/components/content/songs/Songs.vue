@@ -18,7 +18,7 @@
     <div v-for="(i,k) in SearchSongs"
          class="box"
          @mousemove="mousemove(k)"
-         :class="{grey:currentKey===k,dd:getCurrentSong===i.id,backcolor:k%2===0}"
+         :class="{grey:currentKey===k,dd:getCurrentSong===i.id,backcolors:k%2===0}"
          @dblclick="SongClick(i)">
       <!-- 收藏功能 -->
       <span class="index">{{k+1 >= 10 ? k+1 : '0'+ (k+1)}}</span>
@@ -33,7 +33,10 @@
 
       <span class="songname"
             :class="{colorRed:getCurrentSong===i.id}">{{i.name}}</span>
-      <span class="artists">{{i.ar[0].name}}</span>
+
+      <span class="artists"
+            @click="getsonger(i)">{{i.ar[0].name}}</span>
+
       <span class="artists">{{i.al.name}}</span>
       <span class="artists">-</span>
     </div>
@@ -49,17 +52,22 @@
 
 <script>
 import { search } from '../../../network/search'
+import { filter } from '../../../assets/js/filterUrl'
+import { songer } from '../../../network/Songer'
 
 export default {
   name: 'Songs',
   data () {
     return {
       currentKey: '0',
+      noUrl: []
     }
   },
   props: {
     SearchSongs: []
   },
+
+
 
 
   computed: {
@@ -88,10 +96,9 @@ export default {
       if (this.$store.state.WaitSongs.indexOf(i) == -1) {
         this.$store.dispatch('addWaitSongs', i);
       }
-
       setTimeout(() => {
         this.$emit('SongClick');
-      }, 300)
+      }, 500)
 
       this.$store.state.ifplay = true;  //双击 则播放 控制播放暂停按键的显示
     },
@@ -103,6 +110,32 @@ export default {
     remove (i) {
       this.$store.commit('removeSongs', i)
     },
+
+    getsonger (i) {
+
+
+      songer(i.ar[0].id).then(res => {
+        this.$store.commit('setsonger', res.data.songs)
+      })
+
+      setTimeout(() => {
+        this.$router.push('/songer')
+
+      }, 300);
+
+    },
+
+    // getSonger (i) {
+    //   let str = '';
+    //   for (let item of i.ar) {
+    //     str += item.name
+    //     if (i.ar.length > 1) {
+    //       str += "/"
+    //     }
+    //   }
+    //   return str
+    // }
+
   },
 
 }
@@ -112,7 +145,7 @@ export default {
 .dd {
   background-color: var(--mouseOver);
 }
-.backcolor {
+.backcolors {
   background-color: #2e2e2e;
 }
 

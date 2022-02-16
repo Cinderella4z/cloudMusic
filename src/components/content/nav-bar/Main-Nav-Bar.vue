@@ -80,15 +80,8 @@ export default {
             })
           }
 
-
-
-          // this.songs = res.data.result.songs
-
-          // this.$store.commit('getSearchSongs', this.songs) //将请求过来的30条数据 放到 state里面
-
           this.$store.commit('getInput', this.input); //将input值传给state
 
-          // this.$emit('SearchSongs', this.songs);
           this.$router.push('/search');
         })
       }

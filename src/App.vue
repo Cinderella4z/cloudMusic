@@ -126,6 +126,6 @@ export default {
   height: 100vh;
   width: 100vw;
   font-size: 0;
-  min-width: 1400px;
+  min-width: 1500px;
 }
 </style>

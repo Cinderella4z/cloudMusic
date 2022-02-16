@@ -94,5 +94,18 @@ export default
     },
     setHistory (state, playload) {
       state.HistorySongs.unshift(playload)
+    },
+
+    setsonger (state, playload) {
+      state.songer = []
+
+      state.songer = playload
+    },
+    addsonger (state, playload) {
+
+      state.songer.push(...playload)
+    },
+    clearsonger (state) {
+      state.songer = []
     }
   }
