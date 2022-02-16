@@ -1,12 +1,21 @@
 <template>
   <div id="Songs">
+
     <div class="tabname">
-      <div class="tab-name">
-        <slot name="tabname"></slot>
+
+      <div class="img">
+        <slot name="img"></slot>
       </div>
-      <div class="playAll">
-        <slot name="playAll"></slot>
+
+      <div class="inline">
+        <div class="tab-name">
+          <slot name="tabname"></slot>
+        </div>
+        <div class="playAll">
+          <slot name="playAll"></slot>
+        </div>
       </div>
+
     </div>
     <div class="tap">
       <slot name="num1"></slot>
@@ -54,6 +63,7 @@
 import { search } from '../../../network/search'
 import { filter } from '../../../assets/js/filterUrl'
 import { songer } from '../../../network/Songer'
+import { songerDetail } from '../../../network/songerDetail'
 
 export default {
   name: 'Songs',
@@ -118,30 +128,26 @@ export default {
         this.$store.commit('setsonger', res.data.songs)
       })
 
-      setTimeout(() => {
-        this.$router.push('/songer')
+      songerDetail(i.ar[0].id).then(res => {
+        this.$router.push({
+          path: '/songer',
+          query: {
+            currentSonger: JSON.stringify(res.data.data.artist)
+          }
+        })
+      })
 
-      }, 300);
+
 
     },
 
-    // getSonger (i) {
-    //   let str = '';
-    //   for (let item of i.ar) {
-    //     str += item.name
-    //     if (i.ar.length > 1) {
-    //       str += "/"
-    //     }
-    //   }
-    //   return str
-    // }
 
   },
 
 }
 </script>
 
-<style>
+<style scoped>
 .dd {
   background-color: var(--mouseOver);
 }
@@ -223,13 +229,30 @@ export default {
   color: #d0d0d0;
   font-weight: bolder;
   font-size: 25px;
-  padding-left: 40px;
   line-height: 60px;
-  height: 120px;
+  height: 180px;
 }
 .tab-name {
   height: 60px;
+  margin-top: 20px;
   overflow: hidden;
+}
+.img {
+  width: 200px;
+  height: 170px;
+  margin-left: 20px;
+  margin-top: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+.img img {
+  width: 100%;
+  border-radius: 10px;
+  height: 100%;
+}
+.inline {
+  padding-left: 20px;
+  display: inline-block;
 }
 
 .isAdded {

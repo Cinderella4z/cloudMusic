@@ -60,5 +60,6 @@ export default {
   display: inline-block;
   width: 85%;
   font-size: 0px;
+  position: relative;
 }
 </style>

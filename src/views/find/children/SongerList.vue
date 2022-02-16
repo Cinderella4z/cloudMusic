@@ -113,13 +113,18 @@ export default {
     },
 
     showlist (i) {
-
+      console.log(i);
       songer(i.id).then(res => {
         this.$store.commit('setsonger', res.data.songs)
       })
 
       setTimeout(() => {
-        this.$router.push('/songer')
+        this.$router.push({
+          path: '/songer',
+          query: {
+            currentSonger: JSON.stringify(i)
+          }
+        })
       }, 300);
 
 

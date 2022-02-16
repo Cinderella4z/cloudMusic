@@ -3,6 +3,9 @@
 
     <songs :SearchSongs="getSongs "
            @SongClick="SongClick">
+
+      <span slot="img"
+            v-if="getLength"><img :src="getSongsUrl"></span>
       <span slot="tabname">我喜欢的音乐</span>
       <div slot="playAll">
         <el-button type="danger"
@@ -37,9 +40,14 @@ export default {
     }
   },
   computed: {
-
     getSongs () {
       return this.$store.state.AllAddedSongs
+    },
+    getLength () {
+      return this.$store.state.AllAddedSongs.length
+    },
+    getSongsUrl () {
+      return this.$store.state.AllAddedSongs.length !== 0 ? this.$store.state.AllAddedSongs[0].al.picUrl : ''
     }
   },
   components: {

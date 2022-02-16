@@ -7,6 +7,8 @@ import router from '../../../router/index'
 export function
 
   showList (i, k) {
+
+
   getRecommendItem(i.id).then(res => {
 
     // 为了处理res 获取歌曲的ids
@@ -29,7 +31,13 @@ export function
         store.commit('setCurrentRecommend', ...res.data.songs)
       })
     }
-    router.push('/show');
+    // router.push('/show/' + i); 需要配置路由/:recommend
+    router.push({
+      path: '/show',
+      query: {
+        recommend: JSON.stringify(i)
+      }
+    })
 
   })
 }

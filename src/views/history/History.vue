@@ -2,6 +2,8 @@
   <div id="History">
     <songs :SearchSongs="getHistory"
            @SongClick=SongClick>
+
+      <div slot="img"><img :src="getHistoryUrl"></div>
       <div slot="tabname">最近播放</div>
       <div slot="playAll">
         <el-button type="danger"
@@ -33,7 +35,15 @@ export default {
   computed: {
     getHistory () {
       return this.$store.state.HistorySongs
+    },
+
+    getHistoryUrl () {
+      return this.$store.state.HistorySongs[0].al.picUrl
     }
+
+
+    //
+
   },
   methods: {
     SongClick () {

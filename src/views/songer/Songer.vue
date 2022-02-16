@@ -2,7 +2,9 @@
   <div id="Songer">
     <songs :SearchSongs="songs"
            @SongClick="SongClick">
-      <span slot="tabname">{{songs[0].ar[0].name}}</span>
+
+      <span slot="img"><img :src="currentSonger.picUrl || currentSonger.cover"></span>
+      <span slot="tabname">{{currentSonger.name}}</span>
       <div slot="playAll">
         <el-button type="danger"
                    round>▶ 播放全部</el-button>
@@ -20,16 +22,20 @@
 <script>
 import Songs from '../../components/content/songs/Songs'
 
-import { songer } from '../../network/Songer'
+// import { songer } from '../../network/Songer'
 
 export default {
   name: 'Songer',
   data () {
     return {
+      currentSonger: ''
     }
   },
   components: {
     Songs
+  },
+  activated () {
+    this.currentSonger = JSON.parse(this.$route.query.currentSonger)
   },
 
   methods: {

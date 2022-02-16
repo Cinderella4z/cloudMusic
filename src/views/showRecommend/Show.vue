@@ -3,7 +3,9 @@
 
     <songs :SearchSongs="getCurrentRecommend"
            @SongClick="SongClick">
-      <span slot="tabname">推荐歌单</span>
+      <span slot="img"><img :src="currentRecommend.coverImgUrl"></span>
+
+      <span slot="tabname">{{currentRecommend.name}}</span>
       <div slot="playAll">
         <el-button type="danger"
                    @click="playAll"
@@ -26,24 +28,23 @@ export default {
   name: 'Show',
   data () {
     return {
-
+      currentRecommend: '',
     }
   },
   components: {
     Songs
   },
+  activated () {
+    this.currentRecommend = JSON.parse(this.$route.query.recommend)
+  },
   computed: {
     getCurrentRecommend () {
       return this.$store.state.private.currentRecommend
-    }
+    },
   },
   methods: {
     SongClick () {
       this.$emit('SongClick')
-    },
-    ss (i) {
-      console.log(i);
-      console.log(1);
     },
     playAll () {
       playAll(this.$store.state.private.currentRecommend)
@@ -52,7 +53,6 @@ export default {
         this.$emit('SongClick');
       }, 300)
     }
-
   }
 }
 </script>
