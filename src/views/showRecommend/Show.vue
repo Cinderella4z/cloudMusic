@@ -3,7 +3,7 @@
 
     <songs :SearchSongs="getCurrentRecommend"
            @SongClick="SongClick">
-      <span slot="img"><img :src="currentRecommend.coverImgUrl"></span>
+      <span slot="img"><img :src="currentRecommend.coverImgUrl || currentRecommend.picUrl"></span>
 
       <span slot="tabname">{{currentRecommend.name}}</span>
       <div slot="playAll">
