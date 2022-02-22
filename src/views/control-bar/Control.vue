@@ -33,11 +33,11 @@
                 @click="lastSong"><img src="../../assets/img/tabControl/1.png"></span>
           <span class="two"
                 @click="pauseClick"
-                v-if="this.$store.state.ifplay"><a href="#"><span class="pass">| |</span></a></span>
+                v-if="this.$store.state.ifplay"><span class="pass">| |</span></span>
 
           <span class="two"
                 v-else
-                @click="playClick"><a href="#"><span class="start">▶</span></a></span>
+                @click="playClick"><span class="start">▶</span></span>
 
           <span class="one"
                 @click="nextSong"><img src="../../assets/img/tabControl/3.png"></span>
@@ -99,7 +99,7 @@
         <!-- ◀▶◁▷ -->
         <span class="tab-center">
           <span class="one"><img src="../../assets/img/tabControl/1.png"></span>
-          <span class="two"><a href="#"><span class="start">▶</span></a></span>
+          <span class="two"><span class="start">▶</span></span>
           <span class="one"><img src="../../assets/img/tabControl/3.png"></span>
         </span>
 

@@ -3,6 +3,7 @@
 
     <songs :SearchSongs="SearchSongs"
            @SongClick="SongClick">
+      <span slot="img"><img :src="songsImg"></span>
       <div slot="tabname">你正在搜索:{{Input}}</div>
       <span slot="num1">音乐标题</span>
       <span slot="num2">歌手</span>
@@ -22,11 +23,6 @@ import Songs from '../../components/content/songs/Songs'
 
 export default {
   name: 'search',
-  // data () {
-  //   return {
-  //     addedSongs: []
-  //   }
-  // },
   data () {
     return {
     }
@@ -41,7 +37,10 @@ export default {
     },
     SearchSongs () {                              // bug :收藏 之后重新 搜索 ，爱心会没
       return this.$store.state.SearchSongs
-    }
+    },
+    songsImg () {                              // bug :收藏 之后重新 搜索 ，爱心会没
+      return this.$store.state.SearchSongs[0].al.picUrl
+    },
   },
   methods: {
     // 获取点击歌曲 发送给父组件 app

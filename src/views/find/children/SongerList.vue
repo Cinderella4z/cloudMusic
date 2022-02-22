@@ -18,6 +18,7 @@
     <song-list>
 
       <SongItems v-for="i in list"
+                 :key="i.id"
                  @clickList="showlist(i)">
 
         <div slot="img">
@@ -58,7 +59,7 @@ export default {
       index2: 0,
       type: -1,
       list: [],
-      offset: 20,
+      offset: 15,
       add: 10,
       sum: 0
     }
@@ -69,7 +70,6 @@ export default {
   methods: {
     click1 (i, k) {
       this.index1 = k
-
       switch (i) {
         case '全部':
           this.area = -1
@@ -85,6 +85,7 @@ export default {
           break;
         case '韩国':
           this.area = 16
+          break;
         case '其他':
           this.area = 0
           break;

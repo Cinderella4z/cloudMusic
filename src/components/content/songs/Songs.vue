@@ -24,6 +24,7 @@
       <slot name="num4"></slot>
       <slot name="num5"></slot>
     </div>
+
     <div v-for="(i,k) in SearchSongs"
          class="box"
          @mousemove="mousemove(k)"
@@ -33,12 +34,11 @@
       <span class="index">{{k+1 >= 10 ? k+1 : '0'+ (k+1)}}</span>
       <span @click="add(i,k)"
             class="iRight"
-            v-if="$store.state.AllAddedSongsId.indexOf(i.id)==-1"><a href="#">❤</a></span>
+            v-if="$store.state.AllAddedSongsId.indexOf(i.id)==-1">❤</span>
 
       <span @click="remove(i,k)"
             v-else
-            class="iRight"><a href="#"
-           class="isAdded">❤</a></span>
+            class="iRight isAdded">❤</span>
 
       <span class="songname"
             :class="{colorRed:getCurrentSong===i.id}">{{i.name}}</span>
@@ -230,7 +230,7 @@ export default {
   font-weight: bolder;
   font-size: 25px;
   line-height: 60px;
-  height: 180px;
+  height: 200px;
 }
 .tab-name {
   height: 60px;
@@ -239,7 +239,7 @@ export default {
 }
 .img {
   width: 200px;
-  height: 170px;
+  height: 190px;
   margin-left: 20px;
   margin-top: 10px;
   display: inline-block;

@@ -2,10 +2,10 @@
   <div id="MyMusic">
 
     <songs :SearchSongs="getSongs "
-           @SongClick="SongClick">
+           @SongClick="SongClick"
+           v-if="getLength">
 
-      <span slot="img"
-            v-if="getLength"><img :src="getSongsUrl"></span>
+      <span slot="img"><img :src="getSongsUrl"></span>
       <span slot="tabname">我喜欢的音乐</span>
       <div slot="playAll">
         <el-button type="danger"
@@ -23,11 +23,18 @@
 
     </songs>
 
+    <div v-else>
+      <blank>
+        <div slot="text">您还未收藏歌曲!</div>
+      </blank>
+    </div>
+
   </div>
 </template>
 
 <script>
 import Songs from '../../components/content/songs/Songs'
+import blank from '../../components/content/blank/blank'
 import { getLikelist } from '../../assets/js/getLikelist'
 import { playAll } from '../../assets/js/playAll'
 
@@ -51,7 +58,8 @@ export default {
     }
   },
   components: {
-    Songs
+    Songs,
+    blank
   },
   methods: {
     SongClick () {

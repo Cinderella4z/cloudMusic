@@ -1,9 +1,11 @@
 <template>
   <div id="History">
     <songs :SearchSongs="getHistory"
-           @SongClick=SongClick>
+           @SongClick=SongClick
+           v-if="show">
 
-      <div slot="img"><img :src="getHistoryUrl"></div>
+      <span slot="img"><img :src="getHistoryUrl"></span>
+
       <div slot="tabname">最近播放</div>
       <div slot="playAll">
         <el-button type="danger"
@@ -16,11 +18,19 @@
 
     </songs>
 
+    <blank v-else>
+      <span slot="text">
+        您还未播放歌曲!
+      </span>
+    </blank>
+
   </div>
+
 </template>
 
 <script>
 import Songs from '../../components/content/songs/Songs'
+import blank from '../../components/content/blank/blank'
 
 export default {
   name: 'History',
@@ -30,9 +40,13 @@ export default {
     }
   },
   components: {
-    Songs
+    Songs,
+    blank
   },
   computed: {
+    show () {
+      return this.$store.state.HistorySongs.length
+    },
     getHistory () {
       return this.$store.state.HistorySongs
     },
@@ -57,6 +71,6 @@ export default {
 #History {
   display: inline-block;
   width: 85%;
-  font: 0;
+  /* font: 0; */
 }
 </style>

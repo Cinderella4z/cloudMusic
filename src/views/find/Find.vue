@@ -3,7 +3,7 @@
 
     <div class="tab"
          ref="tab">
-      <span v-for="(i,k) in tab"
+      <span v-for="(i,k) in tab "
             class="tab-item"
             @click="tabData(i,k)"
             :class="{onclick:currentindex===k}">
@@ -22,8 +22,8 @@ export default {
   name: 'Find',
   data () {
     return {
-      tab: ['个性推荐', '歌单', '排行榜', '歌手', '最新音乐'],
-      currenttab: ['/recommend', '/list', '/rank', '/songerlist', '/newsongs'],
+      tab: ['个性推荐', '歌单', '排行榜', '歌手'],
+      currenttab: ['/recommend', '/list', '/rank', '/songerlist'],
       imgUrl: [],
     }
   },
