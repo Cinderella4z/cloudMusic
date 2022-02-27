@@ -3,7 +3,7 @@
     <songs :SearchSongs="songs"
            @SongClick="SongClick">
 
-      <span slot="img"><img :src="currentSonger.picUrl || currentSonger.cover"></span>
+      <span slot="img"><img :src="currentSonger.picUrl +'?param=120y120'|| currentSonger.cover+'?param=120y120'"></span>
       <span slot="tabname">{{currentSonger.name}}</span>
       <div slot="playAll">
         <el-button type="danger"

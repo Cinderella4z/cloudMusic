@@ -17,12 +17,12 @@
 
     <song-list>
 
-      <SongItems v-for="i in list"
+      <SongItems v-for="i in songerList"
                  :key="i.id"
                  @clickList="showlist(i)">
 
         <div slot="img">
-          <img :src="i.picUrl">
+          <img :src="getPicUrl(i)">
         </div>
 
         <div slot="text">
@@ -33,8 +33,6 @@
 
     </song-list>
 
-    <div class="loadmore"
-         @click="loadmore">加载更多</div>
   </div>
 
 </template>
@@ -43,9 +41,10 @@
 import { artist } from '../../../network/Songer'
 import { showList } from '../../../assets/js/find/showList'
 import { songer } from '../../../network/Songer'
+import { create } from '../../../../../cloud-music/src/network/login'
+
 import SongList from '../../../components/content/find/SongList'
 import SongItems from '../../../components/content/find/Song-items'
-import { create } from '../../../../../cloud-music/src/network/login'
 
 
 export default {
@@ -64,57 +63,86 @@ export default {
       sum: 0
     }
   },
+
   components: {
-    SongItems, SongList
+    SongItems, SongList,
   },
+  computed: {
+    songerList () {
+      return this.$store.state.find.songerList
+    }
+  },
+
   methods: {
+
+    getPicUrl (i) {
+      return i.picUrl + "?param=150y150"
+    },
+
     click1 (i, k) {
       this.index1 = k
+      this.$emit('click');
       switch (i) {
         case '全部':
-          this.area = -1
+
+          this.$store.commit('setsongerArea', -1)
           break;
         case '华语':
-          this.area = 7
+
+          this.$store.commit('setsongerArea', 7)
+
           break;
         case '欧美':
-          this.area = 96
+
+          this.$store.commit('setsongerArea', 96)
+
           break;
         case '日本':
-          this.area = 8
+
+          this.$store.commit('setsongerArea', 8)
+
           break;
         case '韩国':
-          this.area = 16
+
+          this.$store.commit('setsongerArea', 16)
+
           break;
         case '其他':
-          this.area = 0
+
+          this.$store.commit('setsongerArea', 0)
+
           break;
 
         default:
           break;
       }
-
-      artist(this.type, this.area, this.offset).then(res => {
-        this.list = res.data.artists
+      let area = this.$store.state.find.songerArea
+      let type = this.$store.state.find.songerType
+      artist(type, area, this.offset).then(res => {
+        this.$store.commit('setsongerList', res.data.artists)
       })
 
     },
     click2 (i, k) {
+      this.$emit('click');
       this.index2 = k
       if (k === 0) {
-        this.type = -1
+        this.$store.commit('setsongerType', -1)
       }
       else {
-        this.type = k
+        this.$store.commit('setsongerType', k)
       }
-      artist(this.type, this.area, this.offset).then(res => {
-        this.list = res.data.artists
+      let area = this.$store.state.find.songerArea
+      let type = this.$store.state.find.songerType
+      artist(type, area, this.offset).then(res => {
+        this.$store.commit('setsongerList', res.data.artists)
+
       })
 
     },
 
     showlist (i) {
-      console.log(i);
+      // console.log(i);
       songer(i.id).then(res => {
         this.$store.commit('setsonger', res.data.songs)
       })
@@ -131,18 +159,14 @@ export default {
 
     },
 
-    loadmore () {
-      this.sum += this.add;
-      artist(this.type, this.area, this.offset + this.sum).then(res => {
-        this.list.push(...res.data.artists.splice(this.offset + this.sum - this.add, this.offset + this.sum))
-      })
-    }
+
   },
   created () {
-    artist(this.type, this.area, this.offset).then(res => {
-      this.list = res.data.artists
+    let area = this.$store.state.find.songerArea
+    let type = this.$store.state.find.songerType
+    artist(type, area, this.offset).then(res => {
+      this.$store.commit('setsongerList', res.data.artists)
     })
-
   }
 }
 </script>

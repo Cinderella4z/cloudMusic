@@ -127,5 +127,6 @@ export default {
   width: 100vw;
   font-size: 0;
   min-width: 1500px;
+  -webkit-user-select: none;
 }
 </style>

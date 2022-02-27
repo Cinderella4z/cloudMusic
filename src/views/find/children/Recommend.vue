@@ -14,6 +14,7 @@
       <div slot="tabname">推荐歌单</div>
 
       <SongItem v-for="(i,k) in Recommend"
+                :key="i.id"
                 @clickList="showList(i,k)">
 
         <div slot="img">
@@ -75,6 +76,7 @@ export default {
       showList(i)
     },
     getUrl (k) {
+
       return this.$store.state.private.recommend[k].picUrl ? this.$store.state.private.recommend[k].picUrl : this.$store.state.private.recommend[k].coverImgUrl
     }
   }

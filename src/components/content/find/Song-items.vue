@@ -42,7 +42,7 @@ export default {
 .img img {
   width: 100%;
   height: 100%;
-  border-radius: 30px;
+  border-radius: 15px;
 }
 .text {
   height: 20px;

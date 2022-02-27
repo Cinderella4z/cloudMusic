@@ -10,6 +10,7 @@
       </div>
 
       <SongItem v-for="(i,k) in List"
+                :key="i.id"
                 @clickList="showList(i,k)">
 
         <div slot="img">
@@ -62,7 +63,7 @@ export default {
       })
     },
     getUrl (k) {
-      return this.$store.state.find.list[k].picUrl ? this.$store.state.find.list[k].picUrl : this.$store.state.find.list[k].coverImgUrl
+      return this.$store.state.find.list[k].picUrl ? this.$store.state.find.list[k].picUrl + "?param=150y150" : this.$store.state.find.list[k].coverImgUrl + "?param=150y150"
     },
     showList (i) {
       showList(i)

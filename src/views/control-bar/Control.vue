@@ -7,7 +7,7 @@
       <span class="tab1">
 
         <span class="songimg">
-          <img :src="CurrentSongerImg">
+          <img :src="CurrentSongerImg+'?param=100y100'">
         </span>
 
         <span class="CurrentSongName">

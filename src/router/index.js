@@ -39,24 +39,29 @@ const routes = [
     children: [
       {
         path: '/',
-        redirect: '/recommend'
+        redirect: '/recommend',
+
 
       },
       {
         path: '/recommend',
         component: recommend,
+        name: 'recommend'
       },
       {
         path: '/list',
-        component: List
+        component: List,
+        name: 'list'
       },
       {
         path: '/rank',
-        component: rank
+        component: rank,
+        name: 'rank'
       },
       {
         path: '/songerlist',
-        component: SongerList
+        component: SongerList,
+        name: 'songerList'
       },
     ],
   },

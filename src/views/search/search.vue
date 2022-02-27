@@ -35,11 +35,11 @@ export default {
     Input () {
       return this.$store.state.Input
     },
-    SearchSongs () {                              // bug :收藏 之后重新 搜索 ，爱心会没
+    SearchSongs () {
       return this.$store.state.SearchSongs
     },
-    songsImg () {                              // bug :收藏 之后重新 搜索 ，爱心会没
-      return this.$store.state.SearchSongs[0].al.picUrl
+    songsImg () {
+      return this.$store.state.SearchSongs[0].al.picUrl + '?param=150y150'
     },
   },
   methods: {

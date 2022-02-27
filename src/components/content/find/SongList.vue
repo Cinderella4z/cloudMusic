@@ -32,13 +32,18 @@ export default {
 <style>
 #SongList {
   width: 95%;
+  width: 100%;
   margin: 0 auto;
 }
 .tabname1 {
   height: 40px;
-  width: 100%;
+  /* width: 100%; */
   font-size: 20px;
   color: #d0d0d0;
   font-weight: bolder;
+  margin-left: 20px;
+}
+.items {
+  margin-left: 20px;
 }
 </style>
