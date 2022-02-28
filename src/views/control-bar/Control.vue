@@ -6,7 +6,8 @@
 
       <span class="tab1">
 
-        <span class="songimg">
+        <span class="songimg"
+              @click="showGeci">
           <img :src="CurrentSongerImg+'?param=100y100'">
         </span>
 
@@ -113,7 +114,7 @@
 <script>
 import PlayList from '../playList/PlayList'
 import { getSongSrc } from '../../network/idFindSrc'
-
+import { geci } from '../../network/geci'
 
 export default {
   name: 'Control',
@@ -124,6 +125,7 @@ export default {
       audioShow: 0, //控制音量按键是否显示
       left: 0,//得到 拖动的距离
       playListShow: 0,
+      show: false,
     }
   },
   components: {
@@ -293,7 +295,15 @@ export default {
       }
     },
 
+    showGeci () {
 
+      if (this.$route.path === '/geci') {
+        this.$router.back()
+      }
+      else {
+        this.$router.push('/geci')
+      }
+    }
   }
 }
 </script>

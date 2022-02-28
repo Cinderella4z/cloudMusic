@@ -11,7 +11,7 @@ const List = () => import('../views/find/children/List.vue')
 const rank = () => import('../views/find/children/Rank.vue')
 const songer = () => import('../views/songer/Songer.vue')
 const SongerList = () => import('../views/find/children/SongerList.vue')
-
+const geci = () => import('../views/control-bar/geci/geci.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -72,6 +72,10 @@ const routes = [
   {
     path: '/songer',
     component: songer
+  },
+  {
+    path: '/geci',
+    component: geci
   },
 
 ]

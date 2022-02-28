@@ -66,19 +66,20 @@ export default {
         search(this.input, 30).then(res => {
           let ids = []
           let obj = res.data.result.songs
+          let songs = []
           for (let item of obj) {
             ids.push(item.id)
           }
 
-          if (this.$store.state.SearchSongs.length !== 0) {
-            this.$store.commit('ClearSearchSongs')
-          }
 
           for (let id of ids) {
             getSongDetail(id).then(res => {
-              this.$store.commit('addSearchSongs', res.data.songs)
+              songs.push(...res.data.songs)
             })
           }
+          setTimeout(() => {
+            this.$store.commit('getSearchSongs', songs)
+          }, 200);
 
           this.$store.commit('getInput', this.input); //将input值传给state
 

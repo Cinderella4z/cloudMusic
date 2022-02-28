@@ -38,6 +38,11 @@ const store = new Vuex.Store({
     private: Private,
     find: Find
   },
+  getters: {
+    currentTime (state) {
+      return state.currentTime.toFixed(0)
+    }
+  }
 
 })
 

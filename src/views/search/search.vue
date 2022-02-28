@@ -3,7 +3,7 @@
 
     <songs :SearchSongs="SearchSongs"
            @SongClick="SongClick">
-      <span slot="img"><img :src="songsImg"></span>
+      <span slot="img"><img :src="songsImg()"></span>
       <div slot="tabname">你正在搜索:{{Input}}</div>
       <span slot="num1">音乐标题</span>
       <span slot="num2">歌手</span>
@@ -38,15 +38,20 @@ export default {
     SearchSongs () {
       return this.$store.state.SearchSongs
     },
-    songsImg () {
-      return this.$store.state.SearchSongs[0].al.picUrl + '?param=150y150'
-    },
+
   },
   methods: {
     // 获取点击歌曲 发送给父组件 app
     SongClick () {
       this.$emit('SongClick')
     },
+
+    songsImg () {
+      if (this.$store.state.SearchSongs.length != 0) {
+        return this.$store.state.SearchSongs[0].al.picUrl + '?param=150y150'
+      }
+    },
+
 
   },
 
