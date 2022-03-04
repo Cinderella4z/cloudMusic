@@ -234,7 +234,7 @@ export default {
     },
     changeVolume () {
       this.audioShow = 1;
-      this.$store.commit('setVolume', this.value / 100);
+      // this.$store.commit('setVolume', this.value / 100);
       this.$emit('changeVolume', this.value);
     },
     muted () {
@@ -362,6 +362,7 @@ export default {
   display: inline-block;
   border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 2px;
 }
 .songimg img {
   height: 65px;

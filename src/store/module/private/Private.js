@@ -12,8 +12,8 @@ export default {
     url: '',
     // 名称
     name: '',
-    followeds: '',
-    follows: '',
+    // followeds: '',
+    // follows: '',
   },
 
   mutations: {
@@ -52,12 +52,12 @@ export default {
     setname (state, playload) {
       state.name = playload
     },
-    setfolloweds (state, playload) {
-      state.followeds = playload
-    },
-    setfollows (state, playload) {
-      state.follows = playload
-    }
+    // setfolloweds (state, playload) {
+    //   state.followeds = playload
+    // },
+    // setfollows (state, playload) {
+    //   state.follows = playload
+    // }
 
   }
 

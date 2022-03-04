@@ -7,42 +7,63 @@
       <i class="el-icon-close"></i>
     </span>
 
+    <span class="change">
+      <i class="el-icon-user"></i>
+    </span>
+
+    <!-- 二维码登录 -->
+
+    <div class="unicode"
+         v-if="!getname && changelogin">
+
+      <div class="top">二维码登录</div>
+      <img :src="src"
+           style="width:240px">
+      <div class="bottom"
+           @click="loginStatus">选择其他方式登录</div>
+    </div>
+
     <!-- 手机号登录 -->
-    <div class="logins">
-      <div v-if="$store.state.private.uid===null">
-        <div class="top">手机号登录</div>
-        <div class="input">
-          <input type="text"
-                 placeholder="请输入手机号"
+    <div class="logins"
+         v-if="!getname && !changelogin">
+
+      <div class="top">手机号登录</div>
+      <div class="input">
+        <input type="text"
+               placeholder="请输入手机号"
+               class="number"
+               v-model="phone">
+        <div>
+          <input type="password"
+                 placeholder="请输入密码"
                  class="number"
-                 v-model="phone">
-          <div>
-            <input type="password"
-                   placeholder="请输入密码"
-                   class="number"
-                   v-model="password">
-            <el-button :plain="true"
-                       class="submit"
-                       @click="login">登 录</el-button>
-          </div>
+                 v-model="password">
+          <el-button :plain="true"
+                     class="submit"
+                     @click="login">登 录</el-button>
         </div>
+
       </div>
+      <div @click="loginStatus"
+           class="bottom">
+        选择其他方式登录
+      </div>
+    </div>
 
-      <div v-else
-           class="logined">
+    <!-- 登录成功界面 -->
+    <div v-if="getname"
+         class="logined">
 
-        <img :src="getbackgroundUrl">
+      <img :src="getbackgroundUrl">
 
-        <div class="contents">
-          <div class="touxiang">
-            <img :src="getUrl">
-            <div class="top">{{getname}}</div>
-            <div class="follow">
-              <span> 关注:{{getfollows}}</span>
-              <span> 粉丝:{{getfolloweds}}</span>
-            </div>
-          </div>
-
+      <div class="contents">
+        <div class="touxiang">
+          <img :src="getUrl">
+          <div class="top">{{getname}}</div>
+          <!-- <div class="follow">
+            <span> 关注:{{getfollows}}</span>
+            <span> 粉丝:{{getfolloweds}}</span>
+          </div> -->
         </div>
 
       </div>
@@ -52,7 +73,7 @@
 </template>
 
 <script>
-import { getKey, create, check, phoneLogin } from '../../network/login'
+import { getKey, create, check, phoneLogin, account } from '../../network/login'
 import { getRecommend } from '../../network/Find/child/find-songs'
 import { getLikelist } from '../../assets/js/getLikelist'
 
@@ -65,6 +86,7 @@ export default {
       code: 0,
       phone: '',
       password: '',
+      changelogin: true,
 
     }
   },
@@ -74,65 +96,91 @@ export default {
         if (res.data.code !== 400) {
           // 获取推荐歌单
 
+          this.$store.commit('setuid', res.data.account.id)
           this.$store.commit('setbackgroundUrl', res.data.profile.backgroundUrl)
           this.$store.commit('setUrl', res.data.profile.avatarUrl)
           this.$store.commit('setname', res.data.profile.nickname)
-          this.$store.commit('setfollows', res.data.profile.follows)
-          this.$store.commit('setfolloweds', res.data.profile.followeds)
-
-
+          // this.$store.commit('setfollows', res.data.profile.follows)
+          // this.$store.commit('setfolloweds', res.data.profile.followeds)
+          this.$refs.login.style.display = 'none',
+            this.$store.commit('setifclick')
+          if (this.$store.state.private.uid !== null) {
+            getLikelist(50, 0);
+          }
 
           getRecommend().then(res => {
             this.$store.commit('setRecommend', res.data.recommend.splice(0, 10))
-
           })
 
-          this.$store.commit('setuid', res.data.account.id)
           this.$message({
             message: '登录成功',
             type: 'success'
           });
-          this.$refs.login.style.display = 'none',
-            this.$store.commit('setifclick')
+
         }
         else {
           this.$message.error('密码错误');
         }
 
         // 获取喜欢音乐
-        if (this.$store.state.private.uid !== null) {
-          getLikelist(50, 0);
-        }
+
 
       })
     },
     close () {
       this.$refs.login.style.display = 'none'
     },
+    loginStatus () {
+      this.changelogin = !this.changelogin
+    }
   },
-  // mounted () {
-  //   getKey().then(res => {
-  //     return res.data.data.unikey
-  //   }).then((unikey) => {
+  mounted () {
+    getKey().then(res => {
+      return res.data.data.unikey
+    }).then((unikey) => {
 
-  //     console.log(unikey);
+      create(unikey, unikey).then(src => {
+        this.src = src.data.data.qrimg;
+      })
 
-  //     setInterval(function () {
-  //       check(unikey).then(res => {
-  //         console.log(res.data.code);
-  //         console.log(unikey);
+      let timer = setInterval(() => {
+        check(unikey).then(res => {
+          this.code = res.data.code
+          if (this.code === 803) {
+            account(encodeURIComponent(res.data.cookie)).then(res => {
+              console.log(res);
+              this.$store.commit('setuid', res.data.account.id)
+              this.$store.commit('setbackgroundUrl', res.data.profile.backgroundUrl)
+              this.$store.commit('setUrl', res.data.profile.avatarUrl)
+              this.$store.commit('setname', res.data.profile.nickname)
+              // this.$store.commit('setfollows', res.data.profile.follows)
+              // this.$store.commit('setfolloweds', res.data.profile.followeds)
+              getRecommend().then(res => {
+                this.$store.commit('setRecommend', res.data.recommend.splice(0, 10))
+              })
+              this.$refs.login.style.display = 'none',
+                this.$store.commit('setifclick')
+              if (this.$store.state.private.uid !== null) {
+                getLikelist(50, 0);
+              }
+              this.$message({
+                message: '登录成功',
+                type: 'success'
+              });
 
-  //       })
-  //     }, 3000)
 
-  //     create(unikey, unikey).then(src => {
-  //       this.src = src.data.data.qrimg;
-  //     })
-  //   })
-  // },
+            }
+            )
+          }
+        })
+      }, 1000)
+
+
+    })
+  },
   computed: {
     getbackgroundUrl () {
-      return this.$store.state.private.backgroundUrl + "?param=100y100"
+      return this.$store.state.private.backgroundUrl + "?param=200y200"
     },
     getUrl () {
       return this.$store.state.private.url + "?param=100y100"
@@ -261,5 +309,14 @@ export default {
   width: 80px;
   /* background-color: #ffffff; */
   font-weight: bolder;
+}
+
+.unicode {
+  text-align: center;
+}
+.bottom {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
 }
 </style>

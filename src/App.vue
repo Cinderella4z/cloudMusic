@@ -88,6 +88,7 @@ export default {
     },
     changeVolume (value) {
       this.$refs.audio.volume = value / 100
+
     },
 
     muted () {

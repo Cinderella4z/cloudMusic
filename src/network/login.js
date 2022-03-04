@@ -30,8 +30,16 @@ export function check (key) {
     params: {
       key,
     },
+  })
+}
 
 
+export function account (cookie) {
+  return request({
+    url: '/user/account',
+    params: {
+      cookie
+    }
   })
 }
 

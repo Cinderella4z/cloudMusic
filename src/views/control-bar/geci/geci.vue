@@ -72,10 +72,13 @@ export default {
       }
     },
     index (newVal) {
+
       this.$refs.geci.scrollTo({
         top: 30 * newVal,
         behavior: 'smooth'
       })
+
+
     }
   },
   computed: {
@@ -154,7 +157,7 @@ export default {
   text-align: center;
   color: #d0d0d0;
   font-size: 30px;
-  margin-top: 10px;
+  margin-top: 30px;
   margin-bottom: 10px;
 }
 .songer {
