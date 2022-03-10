@@ -6,24 +6,19 @@
 npm install
 ```
 
-## 2.安装NeteaseCloud
-```
-npm i
-
-```
-## 3.再运行NeteaseCloud app.js文件
+## 2.再运行NeteaseCloud app.js文件
 ```
 node app.js
 
 ```
 
 
-### 4.Compiles and hot-reloads for development
+### 3.Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### 5.Compiles and minifies for production
+### 4.Compiles and minifies for production
 ```
 npm run build
 ```
