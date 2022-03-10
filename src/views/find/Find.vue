@@ -1,6 +1,6 @@
 <template>
   <div id="Find"
-       @scroll="s"
+       @scroll="load"
        ref="find">
 
     <div class="tab"
@@ -24,6 +24,7 @@
 
 <script>
 import { artist } from '../../network/Songer'
+import { throttle } from '../../assets/js/find/throttle'
 
 import backTop from '../../components/content/backTop/backTop'
 
@@ -48,7 +49,9 @@ export default {
     backTop
   },
   methods: {
-    s (e) {
+
+    load: throttle(function (e) {
+
       this.isbackTop = e.target.scrollTop >= 500 ? 1 : 0
       let mainTop = this.$refs.item.$el.offsetHeight + this.tabHeight
       if (e.target.scrollTop + e.target.offsetHeight >= mainTop) {
@@ -76,8 +79,8 @@ export default {
             break;
         }
       }
+    }, 400),
 
-    },
     // 切换语种或分类时候 改变当前页数值
     click () {
       this.page = 2
