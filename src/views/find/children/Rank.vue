@@ -7,6 +7,7 @@
       </div>
 
       <SongItem v-for="i in list"
+                :key="i.id"
                 @clickList="showlist(i)">
 
         <div slot="img">

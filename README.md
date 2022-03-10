@@ -1,20 +1,22 @@
 # music
 
-## 1.首先先安装NeteaseCloud
+
+## 1.Project setup
+```
+npm install
+```
+
+## 2.安装NeteaseCloud
 ```
 npm i
 
 ```
-## 2.再运行app.js文件
+## 3.再运行NeteaseCloud app.js文件
 ```
 node app.js
 
 ```
 
-## 3.Project setup
-```
-npm install
-```
 
 ### 4.Compiles and hot-reloads for development
 ```
